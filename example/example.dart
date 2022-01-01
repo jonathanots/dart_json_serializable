@@ -1,4 +1,4 @@
-import 'package:json_serializable/json_serializable.dart';
+import 'package:json_serializable_generic/json_serializable_generic.dart';
 
 import 'models/user_model.dart';
 

@@ -1,4 +1,4 @@
-import 'package:json_serializable/json_serializable.dart';
+import 'package:json_serializable_generic/json_serializable_generic.dart';
 
 class User with JsonSerializable {
   final int id;
