@@ -1,6 +1,7 @@
-name: json_serializable
+name: json_serializable_generic
 description: A simple library to add json serializable behavior to a class
 version: 1.0.0
+homepage: https://github.com/jonathanots/dart_json_serializable
 repository: https://github.com/jonathanots/dart_json_serializable
 
 environment:
