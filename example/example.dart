@@ -5,7 +5,7 @@ import 'models/user_model.dart';
 void exampleWithMap() {
   var commonUser = User(id: 1, name: "Dash", age: 10);
 
-  print(commonUser.toMap());
+  print(commonUser.toMap(excludes: ['id']));
 
   var parsedUser = JsonSerializable.fromMap<User>(commonUser.toMap());
 

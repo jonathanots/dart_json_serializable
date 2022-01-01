@@ -76,8 +76,8 @@ abstract class JsonSerializable {
     return map;
   }
 
-  String toJson() {
-    return jsonEncode(toMap());
+  String toJson({List<String> excludes = const []}) {
+    return jsonEncode(toMap(excludes: excludes));
   }
 
   static B fromMap<B extends Object>(Map<String, dynamic> source,
@@ -98,6 +98,7 @@ abstract class JsonSerializable {
     return o;
   }
 
-  static B fromJson<B extends Object>(String source) =>
-      fromMap<B>(jsonDecode(source));
+  static B fromJson<B extends Object>(String source,
+          {List<String> excludes = const []}) =>
+      fromMap<B>(jsonDecode(source), excludes: excludes);
 }
