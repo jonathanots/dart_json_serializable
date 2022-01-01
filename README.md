@@ -1,39 +1,70 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This package provides a Json Serializable mechanism.
+You can add this behavior to any class you like.
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### How to use it (keep sure your constructor uses named parameters):
+---
 
 ```dart
-const like = 'sample';
+class User with JsonSerializable {
+  final int id;
+  final String name;
+  final int age;
+
+  User({required this.id, required this.name, required this.age});
+}
 ```
 
-## Additional information
+After your added the JsonSerializable to an Class you can will see
+the following new methods
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+- toMap - use it if you want to convert your current instance to a Map structure
+- toJson - use it if you want to convert your current instance to a json encoded data
+- fromMap - use it if you want to convert a Map structure into a Class. **Make sure that your constructor uses named parameters** 
+- fromJson - use it if you want to convert a json encoded data into a class. **Make sure that your constructor uses named parameters** 
+
+### Full example:
+---
+
+```dart
+import 'package:json_serializable/json_serializable.dart';
+
+import 'models/user_model.dart';
+
+void exampleWithMap() {
+  var commonUser = User(id: 1, name: "Dash", age: 10);
+
+  print(commonUser.toMap());
+
+  var parsedUser = JsonSerializable.fromMap<User>(commonUser.toMap());
+
+  print(parsedUser.toMap());
+}
+
+void exampleWithJson() {
+  var commonUser = User(id: 1, name: "Dash", age: 10);
+
+  print(commonUser.toJson());
+
+  var parsedUser = JsonSerializable.fromJson<User>(commonUser.toJson());
+
+  print(parsedUser.toJson());
+}
+
+void main() {
+  try {
+    exampleWithMap();
+    exampleWithJson();
+  } catch (e) {
+    print(e);
+  }
+}
+
+```
+
+## News
+
+- Now you can use a optional parameter on toMap and fromMap methods, if your want to exclude some variable when convert a class to Map send a ```List<String>```, and the same idea can be used when you want to create a instance of an class from Map data but not want some fields because them not used on your constructor.
+

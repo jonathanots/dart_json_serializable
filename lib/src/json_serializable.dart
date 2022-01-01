@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'dart:mirrors';
 
-///This class provides a Json Serializable mecanism,
+///This class provides a Json Serializable mechanism,
 ///you can use it with any class that you want a basic
 ///behaviour to generate Map or Json and desired class
 ///from Map or Json.
 ///
-///To use it (keep sure your constructor uses named parameters):
+///#### How to use it (keep sure your constructor uses named parameters):
 ///
 ///```dart
 ///class User with JsonSerializable {
@@ -17,6 +17,46 @@ import 'dart:mirrors';
 ///  User({required this.id, required this.name, required this.age});
 ///}
 ///```
+///
+///Then you should be able to use the following methods: `toMap`, `toJson`,
+///`fromMap`, `fromJson`
+///
+///### Full example
+///```dart
+///import 'package:json_serializable/json_serializable.dart';
+///
+///import 'models/user_model.dart';
+///
+///void exampleWithMap() {
+///  var commonUser = User(id: 1, name: "Dash", age: 10);
+///
+///  print(commonUser.toMap());
+///
+///  var parsedUser = JsonSerializable.fromMap<User>(commonUser.toMap());
+///
+///  print(parsedUser.toMap());
+///}
+///
+///void exampleWithJson() {
+///  var commonUser = User(id: 1, name: "Dash", age: 10);
+///
+///  print(commonUser.toJson());
+///
+///  var parsedUser = JsonSerializable.fromJson<User>(commonUser.toJson());
+///
+///  print(parsedUser.toJson());
+///}
+///
+///void main() {
+///  try {
+///    exampleWithMap();
+///    exampleWithJson();
+///  } catch (e) {
+///    print(e);
+///  }
+///}
+///```
+///
 abstract class JsonSerializable {
   Map<String, dynamic> toMap({List<String> excludes = const []}) {
     InstanceMirror im = reflect(this);
